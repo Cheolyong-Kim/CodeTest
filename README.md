@@ -4,3 +4,4 @@
 <br/>
 
 - [day1](https://github.com/Cheolyong-Kim/CodeTest/blob/master/day1.md)
+- [day2](https://github.com/Cheolyong-Kim/CodeTest/blob/master/day2.md)
