@@ -5,3 +5,4 @@
 
 - [day1](https://github.com/Cheolyong-Kim/CodeTest/blob/master/day1.md)
 - [day2](https://github.com/Cheolyong-Kim/CodeTest/blob/master/day2.md)
+- [day3](https://github.com/Cheolyong-Kim/CodeTest/blob/master/day3.md)
