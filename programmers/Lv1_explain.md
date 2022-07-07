@@ -99,8 +99,6 @@
 
 ---
 
-<br/>
-
 ### 신고 결과 받기
 
 [신고 결과 받기](https://programmers.co.kr/learn/courses/30/lessons/92334)
@@ -190,5 +188,103 @@
 
 ---
 
+### 로또의 최고 순위와 최저 순위
 
+[로또의 최고 순위와 최저 순위](https://school.programmers.co.kr/learn/courses/30/lessons/77484?language=python3)
+
+<br>
+
+문제 간단 설명
+
+-> 로또의 당첨 최고 순위와 최저 순위를 계산
+
+-> 대신 입력으로 들어오는 lottos 리스트에 0이 포함되어 있음
+
+-> 0은 어떤 숫자도 될 수 있음
+
+-> 정해져있는 lottos의 로또 번호와 0을 포함해서 최고 순위와 최저 순위 정하기
+
+<br>
+
+코드
+
+```python
+def solution(lottos, win_nums):
+    num_of_z = lottos.count(0)  # lottos의 0 개수를 세둠
+
+    # lottos 원소가 전부 0이면
+    if num_of_z == 6:
+        top_ranking = 1
+        lowest_ranking = 6
+        answer = [top_ranking, lowest_ranking]
+        return answer
+
+    # lottos 원소가 전부 0이 아니면
+    elif num_of_z == 0:
+        set_lottos = set(lottos)
+        set_win_nums = set(win_nums)
+        dif_set = set_lottos - set_win_nums
+        for i in dif_set:
+            del lottos[lottos.index(i)]
+        if len(lottos) == 0 or len(lottos) == 1:
+            top_ranking = 6
+            lowest_ranking = 6
+            answer = [top_ranking, lowest_ranking]
+            return answer
+        else:
+            top_ranking = 7 - len(lottos)
+            lowest_ranking = 7 - len(lottos)
+            answer = [top_ranking, lowest_ranking]
+            return answer
+    # 그 외
+    else:
+        lottos_ex_0 = list(set(lottos))
+        lottos_ex_0.remove(0)
+
+        set_lottos_ex_0 = set(lottos_ex_0)
+        set_win_nums = set(win_nums)
+        dif_set = set_lottos_ex_0 - set_win_nums
+        for i in s:
+            del lottos[lottos.index(i)]
+        top_ranking = 7 - len(lottos)
+        lowest_ranking = 7 - (len(lottos) - num_of_z)
+        answer = [top_ranking, lowest_ranking]
+        return answer
+```
+
+<br>
+
+코드설명
+
+문제 해결 방법의 순서를 먼저 설명
+
+1. 0의 개수를 셈
+
+2. 0이 6개면 최고 1등 최저 6등으로 정해져 있기 때문에 다른 작업 필요 X
+
+3. 0이 0개이거나 그 외의 경우로 나눔
+
+4. 0이 0개일 때
+
+   4-1. 당첨번호와 중복된 번호가 0개 or 1개일 경우 무조건 6등
+
+   4-2. 그 외의 경우 (7 - 맞춘 번호 수)등
+
+5. 그 외
+
+   5-1. 최고 순위는 (7 - 0을 포함한 맞춘 번호 수)등
+
+   5-2. 최저 순위는 (7 - 맞춘 번호 수 - 0의 개수)등
+
+위 해결 방법을 코드로 구현
+
+<br>
+
+set을 활용하여 0을 쉽게 제거할 수 있게 하고
+
+집합 연산을 통해 당첨 번호가 아닌 것을 쉽게 계산할 수 있게 만듦.
+
+<br>
+
+---
 
