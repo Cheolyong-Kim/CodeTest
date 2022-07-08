@@ -288,3 +288,124 @@ set을 활용하여 0을 쉽게 제거할 수 있게 하고
 
 ---
 
+### 신규 아이디 추천
+
+[신규 아이디 추천](https://school.programmers.co.kr/learn/courses/30/lessons/72410)
+
+<br>
+
+###### 문제 간단 설명
+
+문제에서 제시한 조건에 맞게 입력받은 아이디를 수정해야함.
+
+조건은 링크 참조
+
+<br>
+
+###### 코드
+
+```python
+import re
+
+def solution(new_id):
+    # 1단계
+    answer = new_id.lower()
+    # 2단계
+    answer = re.sub('[^a-z0-9-_.]', '', answer)
+    # 3단계
+    answer = re.sub('\.*\.\.', '.', answer)
+    # 4단계
+    answer = re.sub('^\.', '', answer)
+    answer = re.sub('\.$', '', answer)
+    # 5단계
+    if len(answer) == 0:
+        answer = 'a'
+    # 6단계
+    if len(answer) >= 16:
+        answer = answer[:15]
+        answer = re.sub('\.$', '', answer)
+    # 7단계
+    if len(answer) <= 2:
+        while len(answer) < 3:
+            answer += answer[-1]
+    return answer
+```
+
+<br>
+
+###### 코드 설명
+
+문제에서 제시한 단계별로 문제 해결, 정규표현식으로 해결할 수 있는 단계라면 되도록 정규표현식을 사용함.
+
+1단계 - 대문자 소문자로 치환
+
+```python
+answer = new_id.lower()
+```
+
+<br>
+
+2단계 - 알파벳 소문자, 숫자, 빼기(-), 밑줄(_),  마침표(.)를 제외한 문자 제거
+
+```python
+answer = re.sub('[^a-z0-9-_.]', '', answer)
+
+# a-z : 알파벳 소문자
+# 0-9 : 숫자
+# -_. : 빼기, 밑줄, 마침표
+# [] : 대괄호 안의 어느 문자들 중 하나와 매치
+# [^] : ^이후의 문자와 반대되는 것과 매치 
+```
+
+<br>
+
+3단계 - 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 수정
+
+```python
+answer = re.sub('\.*\.\.', '.', answer)
+
+# \. : 마침표를 의미
+# * : * 앞에 오는 문자가 0개를 포함하여 몇 개가 오든 매치
+```
+
+<br>
+
+4단계 - 마침표가 처음이나 끝에 위치한다면 제거
+
+```python
+answer = re.sub('^\.', '', answer)
+answer = re.sub('\.$', '', answer)
+
+# ^ : 문자열의 제일 처음과 매치
+# $ : 문자열의 제일 마지막과 매치
+```
+
+<br>
+
+5단계 - 빈 문자열이라면, a를 대입
+
+```python
+if len(answer) == 0:
+	answer = 'a'
+```
+
+<br>
+
+6단계 - 길이가 16자 이상이면, 첫 15개 문자를 제외한 나머지 문자 제거. 제거 후 마침표(.)가 문자열의 끝에 존재한다면 마침표 제거.
+
+```python
+if len(answer) >= 16:
+	answer = answer[:15]
+	answer = re.sub('\.$', '', answer)
+```
+
+<br>
+
+7단계 - 길이가 2자 이하라면, 문자열의 마지막 문자를 문자열 길이가 3이 될 때 까지 반복해서 끝에 붙임.
+
+```python
+if len(answer) <= 2:
+	while len(answer) < 3:
+		answer += answer[-1]
+```
+
